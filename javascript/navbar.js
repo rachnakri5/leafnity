@@ -41,6 +41,7 @@ const navbarHTML = `
         </a>
       </li>
       <li><a href="contact.html" class="nav-link text-lg transition-colors duration-300 hover:text-orange-400">Contact</a></li>
+      <li><a href="pricing.html" class="nav-link text-lg transition-colors duration-300 hover:text-orange-400">Pricing</a></li>
     </ul>
 
     <!-- CTA -->
@@ -78,7 +79,10 @@ const navbarHTML = `
         <a href="contact.html" class="nav-link transition-colors duration-300 hover:text-orange-400">Contact</a>
         <span class="absolute left-0 -bottom-1 h-1 w-full bg-orange-400 rounded-full scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100"></span>
       </li>
-
+      <li class="mx-4 relative group">
+        <a href="pricing.html" class="nav-link transition-colors duration-300 hover:text-orange-400">Pricing</a>
+        <span class="absolute left-0 -bottom-1 h-1 w-full bg-orange-400 rounded-full scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100"></span>
+      </li>
     </ul>
   </div>
 
