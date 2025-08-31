@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get a Free Quote</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen flex items-center justify-center p-4">
+    <div id="form-container" class="bg-gray-800 p-8 md:p-12 rounded-lg shadow-2xl max-w-lg w-full transform transition-transform duration-300 hover:scale-105">
+
+        <h2 class="text-3xl font-extrabold text-center text-orange-400 mb-4">Request a Free Quote</h2>
+        <p class="text-center text-gray-400 mb-8">
+            Tell us about your project, and we'll get back to you with a tailored quote.
+        </p>
+
+        <div id="quote-form-fields">
+            <form id="quoteForm" class="space-y-6">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="John Doe" required class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors duration-200">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" required class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors duration-200">
+                </div>
+                <div>
+                    <label for="project" class="block text-sm font-medium text-gray-300 mb-1">Project Details</label>
+                    <textarea id="project" name="project-details" rows="4" placeholder="Describe your digital marketing needs, goals, and any specific services you're interested in..." required class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors duration-200"></textarea>
+                </div>
+                <button type="submit" id="submitBtn" class="w-full py-3 px-6 rounded-md bg-orange-500 text-white font-bold text-lg hover:bg-orange-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                    Submit Request
+                </button>
+            </form>
+        </div>
+
+        <div id="successMessage" class="hidden text-center flex flex-col items-center justify-center bg-gray-700 p-8 rounded-lg mt-8" role="alert">
+            <div class="flex items-center justify-center mb-4 text-green-400">
+                <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4a1 1 0 000-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-green-400 mb-2">Thank You!</h3>
+            <p class="text-gray-300">We have received your request and will connect with you soon.</p>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const quoteForm = document.getElementById('quoteForm');
+            const quoteFormFields = document.getElementById('quote-form-fields');
+            const successMessage = document.getElementById('successMessage');
+            const submitBtn = document.getElementById('submitBtn');
+
+            // Centralized configuration for the script URL
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzTrtEOg2BOzFGZwDP-_ojVTszeMw0aROTdEsmUGfroVKizm3HFASOLxgJPLebagNE6vQ/exec';
+            const SUBMITTING_TEXT = 'Submitting...';
+            const INITIAL_TEXT = 'Submit Request';
+
+            quoteForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                // Show submitting state
+                submitBtn.innerHTML = SUBMITTING_TEXT;
+                submitBtn.disabled = true;
+
+                const formData = new FormData(quoteForm);
+                const now = new Date();
+                formData.append('time-stamp', now.toISOString());
+
+                try {
+                    const response = await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (response.ok) {
+                        quoteFormFields.classList.add('hidden');
+                        successMessage.classList.remove('hidden');
+
+                        setTimeout(() => {
+                            successMessage.classList.add('hidden');
+                            quoteFormFields.classList.remove('hidden');
+                            quoteForm.reset();
+                        }, 5000);
+                    } else {
+                        throw new Error('Server response not ok.');
+                    }
+                } catch (error) {
+                    console.error('Submission error:', error);
+                    alert('An error occurred. Please try again.');
+                } finally {
+                    submitBtn.innerHTML = INITIAL_TEXT;
+                    submitBtn.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+
+</html> 

@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexible Pricing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #333;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: #f97316;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(26px);
+        }
+
+        .rotated {
+            transform: rotate(45deg);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .btn-active {
+            background-color: #f97316;
+            color: #ffffff;
+            box-shadow: 0 4px 14px 0 rgba(249, 115, 22, 0.25);
+        }
+
+        .btn-inactive {
+            background-color: transparent;
+            color: #6b7280;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.15);
+        }
+
+        .addon-button {
+            background-color: #f97316;
+            color: #ffffff;
+            font-weight: bold;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.3s;
+        }
+
+        .addon-button:hover {
+            background-color: #ea580c;
+        }
+
+        .ecommerce-card {
+            min-height: 480px;
+        }
+
+        /* Enhanced Features Page Styles */
+        .features-container {
+            background-color: #1f2937;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+        }
+
+        .features-header {
+            display: grid;
+            grid-template-columns: 1fr repeat(3, 1fr);
+            gap: 1rem;
+            text-align: center;
+            border-bottom: 2px solid #374151;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .features-category {
+            border-radius: 0.75rem;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .features-category-header {
+            background-color: #374151;
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        .features-category-header:hover {
+            background-color: #4b5563;
+        }
+
+        .features-list {
+            display: none;
+            flex-direction: column;
+            padding: 0.5rem 0;
+            background-color: #1f2937;
+        }
+
+        .features-list.active {
+            display: flex;
+        }
+
+        .feature-item {
+            display: grid;
+            grid-template-columns: 1fr repeat(3, 1fr);
+            gap: 1rem;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-top: 1px solid #374151;
+        }
+
+        .feature-item:first-child {
+            border-top: none;
+        }
+
+        .feature-item span {
+            text-align: center;
+        }
+
+        .feature-item span:first-child {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-gray-200 min-h-screen flex flex-col items-center">
+    <header id="nav-placeholder"></header>
+    <!-- ===== MODAL SERVICES SECTION ===== -->
+    <div id="services-modal" class="modal-overlay">
+        <div
+            class="modal-content relative bg-gray-800 rounded-lg p-8 shadow-xl border border-gray-700 max-h-screen overflow-y-auto my-8">
+            <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+                aria-label="Close services modal">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <div class="flex flex-col gap-12 lg:grid lg:grid-cols-2 lg:gap-12 items-center">
+                <div class="flex flex-col items-center text-center">
+                    <h2 class="text-3xl font-bold text-white mb-8">Our Services</h2>
+                    <div class="grid grid-cols-1 gap-y-6">
+                        <a href="#"
+                            class="group w-full flex items-center space-x-4 p-2 -ml-2 rounded-lg transition-colors duration-300 hover:bg-gray-700 text-left">
+                            <svg class="h-6 w-6 text-gray-400 flex-shrink-0 transition-colors duration-300 group-hover:text-orange-400"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9.75 17L12 19.25L14.25 17m-4.5 0h4.5m-4.5 0v4.5m4.5-4.5v4.5M2 12l5 5L12 12l-5-5L2 12zM22 12l-5 5-5-5 5-5z">
+                                </path>
+                            </svg>
+                            <span
+                                class="text-lg text-gray-200 transition-colors duration-300 group-hover:text-orange-400">Website
+                                Design</span>
+                        </a>
+                        <a href="#"
+                            class="group w-full flex items-center space-x-4 p-2 -ml-2 rounded-lg transition-colors duration-300 hover:bg-gray-700 text-left">
+                            <svg class="h-6 w-6 text-gray-400 flex-shrink-0 transition-colors duration-300 group-hover:text-orange-400"
+                                fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12.9 14.32a8 8 0 111.414-1.414l5.36 5.36a1 1 0 01-1.414 1.414l-5.36-5.36zM9 16a7 7 0 100-14 7 7 0 000 14z"
+                                    clip-rule="evenodd" fill-rule="evenodd"></path>
+                            </svg>
+                            <span
+                                class="text-lg text-gray-200 transition-colors duration-300 group-hover:text-orange-400">Search
+                                Engine Optimization (SEO)</span>
+                        </a>
+                        <a href="#"
+                            class="group w-full flex items-center space-x-4 p-2 -ml-2 rounded-lg transition-colors duration-300 hover:bg-gray-700 text-left">
+                            <svg class="h-6 w-6 text-gray-400 flex-shrink-0 transition-colors duration-300 group-hover:text-orange-400"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 11.25V4.5a2.25 2.25 0 014.5 0V11.25m-4.5 0h4.5m-4.5 0v-4.5m4.5 0v4.5M12 2a10 10 0 100 20 10 10 0 000-20zM9 13.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 13.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z">
+                                </path>
+                            </svg>
+                            <span
+                                class="text-lg text-gray-200 transition-colors duration-300 group-hover:text-orange-400">Google
+                                Ads (PPC)</span>
+                        </a>
+                        <a href="#"
+                            class="group w-full flex items-center space-x-4 p-2 -ml-2 rounded-lg transition-colors duration-300 hover:bg-gray-700 text-left">
+                            <svg class="h-6 w-6 text-gray-400 flex-shrink-0 transition-colors duration-300 group-hover:text-orange-400"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 2a10 10 0 1016 0 8 8 0 00-16 0zM8 9h8m-8 4h8m-8 4h8"></path>
+                                <path d="M10 11a2 2 0 100 4 2 2 0 000-4zM14 11a2 2 0 100 4 2 2 0 000-4z"></path>
+                            </svg>
+                            <span
+                                class="text-lg text-gray-200 transition-colors duration-300 group-hover:text-orange-400">Social
+                                Media Marketing</span>
+                        </a>
+                        <a href="#"
+                            class="group w-full flex items-center space-x-4 p-2 -ml-2 rounded-lg transition-colors duration-300 hover:bg-gray-700 text-left">
+                            <svg class="h-6 w-6 text-gray-400 flex-shrink-0 transition-colors duration-300 group-hover:text-orange-400"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 12a8 8 0 1016 0 8 8 0 00-16 0zM12 6v6l4 2"></path>
+                            </svg>
+                            <span
+                                class="text-lg text-gray-200 transition-colors duration-300 group-hover:text-orange-400">Website
+                                Maintenance</span>
+                        </a>
+                    </div>
+                </div>
+                <div
+                    class="bg-gray-700 rounded-lg p-6 w-full max-w-sm flex flex-col justify-center items-center shadow-inner border border-gray-600">
+                    <h3 class="text-2xl font-bold text-white text-center mb-4">BOOK A FREE CONSULTATION</h3>
+                    <p class="text-gray-400 text-center mb-6">
+                        Need a winning strategy? Contact us for a free consultation, and let's create a plan that
+                        drives results!
+                    </p>
+                    <a href="contact.html"
+                        class="w-full py-3 px-6 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-full hover:from-orange-600 hover:to-red-600 transition-all shadow-lg text-center">
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <main class="w-full max-w-7xl mx-auto mt-10 py-12 p-4 sm:p-6 lg:p-12">
+        <header class="flex flex-col items-center justify-center p-4">
+            <div class="flex flex-col md:flex-col md:items-center justify-center mb-12 sm:mb-16 w-full max-w-4xl">
+                <div class="flex flex-col items-center">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-2 text-center">
+                        Choose your plans
+                    </h1>
+                    <div class="flex items-center space-x-2 mb-8 mt-4">
+                        <button id="general-button"
+                            class="font-semibold py-2 px-4 rounded-xl transition-colors btn-active">General</button>
+                        <button id="ecommerce-button"
+                            class="font-semibold py-2 px-4 rounded-xl transition-colors btn-inactive hover:bg-gray-700">Ecommerce</button>
+                    </div>
+                    <p class="text-base sm:text-lg text-gray-400 max-w-2xl text-center">
+                        Build with Webflow’s AI-native website experience platform — free to start, and upgrade anytime
+                        to unlock advanced features.
+                    </p>
+                </div>
+                <div class="mt-8 md:mt-0 flex flex-col items-center">
+                    <div class="flex items-center space-x-4">
+                        <span class="text-gray-400 font-semibold">Billed monthly</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="billing-toggle" role="switch" aria-checked="false">
+                            <span class="slider"></span>
+                        </label>
+                        <span class="text-gray-400 font-semibold">Billed yearly</span>
+                    </div>
+                    <p class="text-sm text-orange-500 mt-2">(Save up to 22%)</p>
+                </div>
+            </div>
+        </header>
+
+        <section>
+            <div id="gst-note" class="hidden flex items-center mb-4">
+                <p class="text-sm text-orange-500">Note: GST @ 18% Applicable on All Purchase</p>
+            </div>
+            <div id="pricing-cards-container"
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 sm:gap-8 justify-items-center">
+            </div>
+        </section>
+
+        <section id="addons-section" class="mt-16 w-full hidden">
+            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-8">Add-ons</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div
+                    class="relative bg-gradient-to-b from-gray-800 to-gray-900 rounded-3xl shadow-lg p-6 sm:p-8 flex flex-col transition-all duration-300 pricing-card">
+                    <div class="flex-grow">
+                        <span
+                            class="text-xs font-semibold px-2 py-1 bg-orange-500 text-white rounded-full">OPTIMIZE</span>
+                        <div class="flex items-baseline mt-4">
+                            <span class="text-4xl font-extrabold text-white">$299</span>
+                            <span class="ml-1 text-base font-medium text-gray-400">/mo</span>
+                        </div>
+                        <p class="text-sm text-gray-300 mt-1 mb-4">based on # of page views, billed yearly</p>
+                        <p class="text-sm text-gray-300 mb-4">For individuals and small teams just getting started with
+                            optimization.</p>
+                        <p class="text-xs text-gray-400 mb-6">Available as an add-on to Basic, CMS, and Business Site
+                            plans.</p>
+                    </div>
+                    <div class="flex items-center mt-4">
+                        <p class="text-sm text-orange-500">Note: GST @ 18% Applicable on All Purchase</p>
+                    </div>
+                    <button
+                        class="w-full py-3 rounded-xl font-bold transition-colors duration-300 addon-button mt-4 shadow-sm">
+                        Add Optimize
+                    </button>
+                </div>
+                <div
+                    class="relative bg-gradient-to-b from-gray-800 to-gray-900 rounded-3xl shadow-lg p-6 sm:p-8 flex flex-col transition-all duration-300 pricing-card">
+                    <div class="flex-grow">
+                        <span class="text-xs font-semibold px-2 py-1 bg-orange-500 text-white rounded-full">OPTIMIZE
+                            ENTERPRISE</span>
+                        <h3 class="text-4xl font-extrabold text-white mt-4 mb-2">Contact us</h3>
+                        <p class="text-sm text-gray-300 mb-4">For businesses building and scaling optimization programs.
+                        </p>
+                        <p class="text-xs text-gray-400 mb-6">Available as an add-on to the Enterprise Site plan.</p>
+                    </div>
+                    <div class="flex items-center mt-4">
+                        <p class="text-sm text-orange-500">Note: GST @ 18% Applicable on All Purchase</p>
+                    </div>
+                    <button
+                        class="w-full py-3 rounded-xl font-bold transition-colors duration-300 addon-button mt-4 shadow-sm">
+                        Talk to sales
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="features-section" class="mt-16 w-full hidden">
+            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-8">Features</h2>
+            <div id="features-container" class="features-container">
+                <div class="features-header">
+                    <span class="text-gray-400 font-semibold text-left">Features</span>
+                    <span class="text-gray-400 font-semibold">STANDARD</span>
+                    <span class="text-gray-400 font-semibold">PLUS</span>
+                    <span class="text-gray-400 font-semibold">ADVANCED</span>
+                </div>
+                <div id="features-list"></div>
+            </div>
+        </section>
+    </main>
+    <footer id="footer-placeholder"></footer>
+
+      <!-- ===== JAVASCRIPT CODE ===== -->
+    <script src="./javascript/navbar.js"></script>
+    <script src="./javascript/footer.js"></script>
+    <script src="./javascript/services-modal.js"></script>
+  <script src="./javascript/formhandler.js"></script>
+    <script src="./javascript/main.js" defer></script>
+    <script src="./javascript/floating-buttons.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const generalPricingData = [{
+                title: 'STARTER',
+                badge: null,
+                price: 'Free',
+                priceYearly: 'Free',
+                billed: null,
+                billedYearly: null,
+                description: 'Get started building, experimenting, and prototyping with AI.',
+                buttonText: 'Start for free',
+                isFeatured: false,
+                isEnterprise: false,
+                features: []
+            }, {
+                title: 'BASIC',
+                badge: null,
+                price: '$18',
+                priceYearly: '$14',
+                billed: 'billed monthly',
+                billedYearly: 'billed yearly',
+                description: 'Perfect for landing pages, personal sites, portfolios, or MVPs that don’t require a CMS.',
+                buttonText: 'Add Site plan',
+                isFeatured: false,
+                isEnterprise: false,
+                features: []
+            }, {
+                title: 'CMS',
+                badge: 'POPULAR',
+                price: '$29',
+                priceYearly: '$23',
+                billed: 'billed monthly',
+                billedYearly: 'billed yearly',
+                description: 'Ideal for marketing sites, blogs, and SEO-driven pages built with structured content.',
+                buttonText: 'Add Site plan',
+                isFeatured: true,
+                isEnterprise: false,
+                features: []
+            }, {
+                title: 'PRO',
+                badge: 'NEW',
+                price: '$39',
+                priceYearly: '$32',
+                billed: 'billed monthly',
+                billedYearly: 'billed yearly',
+                description: 'For advanced users and growing teams with more robust needs.',
+                buttonText: 'Add Site plan',
+                isFeatured: false,
+                isEnterprise: false,
+                features: []
+            }, {
+                title: 'BUSINESS',
+                badge: 'FLEXIBLE',
+                price: '$49',
+                priceYearly: '$39',
+                billed: 'billed monthly',
+                billedYearly: 'billed yearly',
+                description: 'Best for high-traffic marketing sites, fast-growing teams, and global reach.',
+                buttonText: 'Add Site plan',
+                isFeatured: false,
+                isEnterprise: false,
+                features: []
+            }, {
+                title: 'ENTERPRISE',
+                badge: null,
+                price: 'Get a demo',
+                priceYearly: 'Get a demo',
+                billed: null,
+                billedYearly: null,
+                description: 'Enterprise-grade performance, security, and control — designed for teams who demand more.',
+                buttonText: 'Talk to us',
+                isFeatured: false,
+                isEnterprise: true,
+                features: []
+            }];
+
+            const ecommercePricingData = [{
+                title: 'SILVER PLAN',
+                badge: null,
+                price: '₹15300',
+                priceYearly: '₹15300',
+                billed: 'one time payment',
+                billedYearly: 'Annual Renewal ₹4000',
+                description: [
+                    '1 Free Domain Name',
+                    '5 Pages (Basic Design)',
+                    'Unlimited Product Basic Listing',
+                    'Business Email id (Webmail)',
+                    'Unlimited Images & Videos',
+                    'Unlimited (Bandwidth/ Space)',
+                    '100% Responsive Website',
+                    'Social Media Integration',
+                    'Live Chat Integration',
+                    'Payment Gateway',
+                    '24/7 Support (SLA: 48 Hours)'
+                ],
+                buttonText: 'Add Ecommerce plan',
+                isFeatured: false,
+                isEnterprise: false,
+            }, {
+                title: 'GOLD PLAN',
+                badge: null,
+                price: '₹18300',
+                priceYearly: '₹18300',
+                billed: 'one time payment',
+                billedYearly: 'Annual Renewal ₹5000',
+                description: [
+                    '1 Free Domain Name',
+                    'UL (10) Pages* (Dynamic Design)',
+                    'Unlimited Product Listing',
+                    'Unlimited Email id (Webmail)',
+                    'Unlimited Images & Videos',
+                    'Unlimited (Bandwidth/ Space)',
+                    '100% Responsive Website',
+                    'Social Media Integration',
+                    'Live Chat Integration',
+                    'Payment Gateway',
+                    'cPanel* Access',
+                    'SSL Certificate',
+                    '24/7 Support (SLA: 12 Hours)'
+                ],
+                buttonText: 'Add Ecommerce plan',
+                isFeatured: false,
+                isEnterprise: false,
+            }, {
+                title: 'ENTERPRISE',
+                badge: null,
+                price: 'Contact Us',
+                priceYearly: 'Contact Us',
+                billed: null,
+                billedYearly: null,
+                description: [
+                    'Custom Solutions for Enterprises',
+                    'Common applications',
+                    'Special functionality for which there is not an off-the-shelf solution',
+                    'Extend common web components with your special business rules',
+                    'Integrate your web site with other systems. We know software and we engineer custom solutions.'
+                ],
+                buttonText: 'Talk to Us',
+                isFeatured: false,
+                isEnterprise: true,
+            }];
+
+            const ecommerceFeaturesData = [{
+                category: 'Publishing',
+                features: [{
+                    name: 'Ecommerce items',
+                    Standard: '500',
+                    Plus: '5,000',
+                    Advanced: '15,000'
+                }, {
+                    name: 'CMS items',
+                    Standard: '2,000',
+                    Plus: '10,000',
+                    Advanced: '10,000'
+                }]
+            }, {
+                category: 'Design',
+                features: [{
+                    name: 'Custom checkout',
+                    Standard: true,
+                    Plus: true,
+                    Advanced: true
+                }, {
+                    name: 'Custom shopping cart',
+                    Standard: true,
+                    Plus: true,
+                    Advanced: true
+                }, {
+                    name: 'Paid user accounts',
+                    Standard: '20,000',
+                    Plus: '20,000',
+                    Advanced: '20,000'
+                }]
+            }, {
+                category: 'Payments',
+                features: [{
+                    name: 'Transaction fee',
+                    Standard: '2%',
+                    Plus: '0%',
+                    Advanced: '0%'
+                }, {
+                    name: 'Stripe powered payments',
+                    Standard: true,
+                    Plus: true,
+                    Advanced: true
+                }, {
+                    name: 'PayPal support',
+                    Standard: true,
+                    Plus: true,
+                    Advanced: true
+                }, {
+                    name: 'Apple Pay and Web Payments',
+                    Standard: true,
+                    Plus: true,
+                    Advanced: true
+                }, {
+                    name: 'Automatic tax calculation',
+                    Standard: true,
+                    Plus: true,
+                    Advanced: true
+                }, {
+                    name: 'Unlimited sales volume',
+                    Standard: true,
+                    Plus: true,
+                    Advanced: true
+                }]
+            }, {
+                category: 'Management',
+                features: [{
+                    name: 'Configure manual shopping rules',
+                    Standard: true,
+                    Plus: true,
+                    Advanced: true
+                }, {
+                    name: 'Staff accounts',
+                    Standard: '3',
+                    Plus: '10',
+                    Advanced: '15'
+                }]
+            }];
+
+            const pricingCardsContainer = document.getElementById('pricing-cards-container');
+            const billingToggle = document.getElementById('billing-toggle');
+            const generalButton = document.getElementById('general-button');
+            const ecommerceButton = document.getElementById('ecommerce-button');
+            const featuresSection = document.getElementById('features-section');
+            const addonsSection = document.getElementById('addons-section');
+            const featuresList = document.getElementById('features-list');
+            const gstNote = document.getElementById('gst-note');
+
+            function createPriceCardElement(plan, isYearly, isEcommerce) {
+                const card = document.createElement('div');
+                card.className = `relative bg-gray-800 rounded-3xl shadow-lg p-6 sm:p-8 flex flex-col transition-all duration-300 pricing-card ${plan.isFeatured ? 'border-4 border-orange-500' : ''} ${isEcommerce ? 'ecommerce-card h-full' : ''}`;
+
+                const priceDisplay = isYearly ? plan.priceYearly : plan.price;
+                const billedDisplay = isYearly && plan.billedYearly ? plan.billedYearly : plan.billed;
+
+                let descriptionHtml = '';
+                if (Array.isArray(plan.description)) {
+                    descriptionHtml = `<ul class="list-disc list-inside text-sm text-gray-400 mb-6 space-y-2">` +
+                        plan.description.map(item => `<li>${item}</li>`).join('') +
+                        `</ul>`;
+                } else {
+                    descriptionHtml = `<p class="text-sm text-gray-400 mb-6">${plan.description}</p>`;
+                }
+
+                const priceSectionHtml = priceDisplay.includes('$') || priceDisplay.includes('₹') ?
+                    `<div class="flex items-baseline mt-2">
+                        <span class="text-4xl font-extrabold text-white">${priceDisplay}</span>
+                        <span class="ml-1 text-base font-medium text-gray-400">/mo</span>
+                    </div>` :
+                    `<span class="text-3xl font-extrabold text-white mt-2">${priceDisplay}</span>`;
+
+                const buttonClasses = plan.isEnterprise ? 'bg-orange-500 text-white hover:bg-orange-600' : 'bg-orange-500 text-white hover:bg-orange-600';
+                const buttonText = plan.isEnterprise ? 'Talk to us' : plan.buttonText;
+
+                card.innerHTML = `
+                    <div class="flex-grow">
+                        <div class="flex flex-col mb-4">
+                            <h3 class="text-lg font-bold text-orange-500 uppercase">${plan.title}</h3>
+                            ${priceSectionHtml}
+                            ${billedDisplay ? `<p class="text-xs text-gray-500 mt-1">${billedDisplay}</p>` : ''}
+                        </div>
+                        ${descriptionHtml}
+                    </div>
+                    <button class="w-full py-3 rounded-xl font-bold transition-colors duration-300 ${buttonClasses} mt-4 shadow-sm">
+                        ${buttonText}
+                    </button>
+                `;
+
+                // Add event listener to the button
+                card.querySelector('button').addEventListener('click', () => {
+                    window.location.href = 'chat.html';
+                });
+
+                return card;
+            }
+
+            function renderPricingCards(data) {
+                pricingCardsContainer.innerHTML = '';
+                const isYearly = billingToggle.checked;
+                const isEcommerce = data === ecommercePricingData;
+
+                const gridClasses = isEcommerce ? "grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 justify-items-center" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 sm:gap-8 justify-items-center";
+                pricingCardsContainer.className = gridClasses;
+
+                data.forEach(plan => {
+                    const card = createPriceCardElement(plan, isYearly, isEcommerce);
+                    pricingCardsContainer.appendChild(card);
+                });
+            }
+
+            function renderFeaturesPage() {
+                featuresList.innerHTML = '';
+                ecommerceFeaturesData.forEach((category) => {
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.className = 'features-category';
+
+                    const headerDiv = document.createElement('div');
+                    headerDiv.className = 'features-category-header';
+                    headerDiv.innerHTML = `
+                        <span class="text-gray-100 font-bold">${category.category}</span>
+                        <svg class="w-6 h-6 text-gray-400 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                    `;
+                    categoryDiv.appendChild(headerDiv);
+
+                    const featureListDiv = document.createElement('div');
+                    featureListDiv.className = 'features-list';
+
+                    category.features.forEach((feature) => {
+                        const featureItemDiv = document.createElement('div');
+                        featureItemDiv.className = 'feature-item';
+                        featureItemDiv.innerHTML = `
+                            <span class="text-gray-400">${feature.name}</span>
+                            <span class="text-gray-300">${formatFeatureValue(feature.Standard)}</span>
+                            <span class="text-gray-300">${formatFeatureValue(feature.Plus)}</span>
+                            <span class="text-gray-300">${formatFeatureValue(feature.Advanced)}</span>
+                        `;
+                        featureListDiv.appendChild(featureItemDiv);
+                    });
+                    categoryDiv.appendChild(featureListDiv);
+                    featuresList.appendChild(categoryDiv);
+
+                    headerDiv.addEventListener('click', () => {
+                        const icon = headerDiv.querySelector('svg');
+                        const list = headerDiv.nextElementSibling;
+                        icon.classList.toggle('rotated');
+                        list.classList.toggle('active');
+                    });
+                });
+            }
+
+            function formatFeatureValue(value) {
+                if (value === true) {
+                    return `<svg class="w-6 h-6 mx-auto text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>`;
+                } else if (value) {
+                    return value;
+                }
+                return '—';
+            }
+
+            billingToggle.addEventListener('change', () => {
+                const isGeneral = generalButton.classList.contains('btn-active');
+                billingToggle.setAttribute('aria-checked', billingToggle.checked);
+                if (isGeneral) {
+                    renderPricingCards(generalPricingData);
+                } else {
+                    renderPricingCards(ecommercePricingData);
+                }
+            });
+
+            generalButton.addEventListener('click', () => {
+                generalButton.classList.remove('btn-inactive', 'hover:bg-gray-700');
+                generalButton.classList.add('btn-active');
+                ecommerceButton.classList.remove('btn-active');
+                ecommerceButton.classList.add('btn-inactive', 'hover:bg-gray-700');
+                featuresSection.classList.add('hidden');
+                addonsSection.classList.remove('hidden');
+                gstNote.classList.add('hidden');
+                renderPricingCards(generalPricingData);
+            });
+
+            ecommerceButton.addEventListener('click', () => {
+                ecommerceButton.classList.remove('btn-inactive', 'hover:bg-gray-700');
+                ecommerceButton.classList.add('btn-active');
+                generalButton.classList.remove('btn-active');
+                generalButton.classList.add('btn-inactive', 'hover:bg-gray-700');
+                featuresSection.classList.remove('hidden');
+                addonsSection.classList.add('hidden');
+                gstNote.classList.remove('hidden');
+                renderPricingCards(ecommercePricingData);
+                renderFeaturesPage();
+            });
+
+            // Initial render
+            renderPricingCards(generalPricingData);
+            addonsSection.classList.remove('hidden');
+        });
+    </script>
+</body>
+
+</html>

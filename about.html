@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Leafnity Solutions</title>
+  <meta name="description"
+    content="Learn about Leafnity Solutions, our mission, vision, and team dedicated to helping businesses thrive in the digital world.">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Custom Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- CSS link -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-gray-900 text-gray-200">
+  <!-- ===== HEADER SECTION ===== -->
+  <header>
+    <div id="nav-placeholder"></div>
+  </header>
+  <!-- ===== MODAL SERVICES SECTION ===== -->
+  <div id="services-modal" class="modal-overlay">
+    <div
+      class="modal-content relative bg-gray-800 rounded-lg p-8 shadow-xl border border-gray-700 max-h-screen overflow-y-auto my-8">
+      <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+        aria-label="Close services modal">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      <div class="flex flex-col gap-12 lg:grid lg:grid-cols-2 lg:gap-12 items-center">
+        <div class="flex flex-col items-center text-center">
+          <h2 class="text-3xl font-bold text-white mb-8">Our Services</h2>
+          <div class="grid grid-cols-1 gap-y-6">
+            <a href="#"
+              class="group w-full flex items-center space-x-4 p-2 -ml-2 rounded-lg transition-colors duration-300 hover:bg-gray-700 text-left">
+              <svg
+                class="h-6 w-6 text-gray-400 flex-shrink-0 transition-colors duration-300 group-hover:text-orange-400"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9.75 17L12 19.25L14.25 17m-4.5 0h4.5m-4.5 0v4.5m4.5-4.5v4.5M2 12l5 5L12 12l-5-5L2 12zM22 12l-5 5-5-5 5-5z">
+                </path>
+              </svg>
+              <span class="text-lg text-gray-200 transition-colors duration-300 group-hover:text-orange-400">Website
+                Design</span>
+            </a>
+            <a href="#"
+              class="group w-full flex items-center space-x-4 p-2 -ml-2 rounded-lg transition-colors duration-300 hover:bg-gray-700 text-left">
+              <svg
+                class="h-6 w-6 text-gray-400 flex-shrink-0 transition-colors duration-300 group-hover:text-orange-400"
+                fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12.9 14.32a8 8 0 111.414-1.414l5.36 5.36a1 1 0 01-1.414 1.414l-5.36-5.36zM9 16a7 7 0 100-14 7 7 0 000 14z"
+                  clip-rule="evenodd" fill-rule="evenodd"></path>
+              </svg>
+              <span class="text-lg text-gray-200 transition-colors duration-300 group-hover:text-orange-400">Search
+                Engine Optimization (SEO)</span>
+            </a>
+            <a href="#"
+              class="group w-full flex items-center space-x-4 p-2 -ml-2 rounded-lg transition-colors duration-300 hover:bg-gray-700 text-left">
+              <svg
+                class="h-6 w-6 text-gray-400 flex-shrink-0 transition-colors duration-300 group-hover:text-orange-400"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M7 11.25V4.5a2.25 2.25 0 014.5 0V11.25m-4.5 0h4.5m-4.5 0v-4.5m4.5 0v4.5M12 2a10 10 0 100 20 10 10 0 000-20zM9 13.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 13.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z">
+                </path>
+              </svg>
+              <span class="text-lg text-gray-200 transition-colors duration-300 group-hover:text-orange-400">Google
+                Ads (PPC)</span>
+            </a>
+            <a href="#"
+              class="group w-full flex items-center space-x-4 p-2 -ml-2 rounded-lg transition-colors duration-300 hover:bg-gray-700 text-left">
+              <svg
+                class="h-6 w-6 text-gray-400 flex-shrink-0 transition-colors duration-300 group-hover:text-orange-400"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 2a10 10 0 1016 0 8 8 0 00-16 0zM8 9h8m-8 4h8m-8 4h8"></path>
+                <path d="M10 11a2 2 0 100 4 2 2 0 000-4zM14 11a2 2 0 100 4 2 2 0 000-4z"></path>
+              </svg>
+              <span class="text-lg text-gray-200 transition-colors duration-300 group-hover:text-orange-400">Social
+                Media Marketing</span>
+            </a>
+            <a href="#"
+              class="group w-full flex items-center space-x-4 p-2 -ml-2 rounded-lg transition-colors duration-300 hover:bg-gray-700 text-left">
+              <svg
+                class="h-6 w-6 text-gray-400 flex-shrink-0 transition-colors duration-300 group-hover:text-orange-400"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 12a8 8 0 1016 0 8 8 0 00-16 0zM12 6v6l4 2"></path>
+              </svg>
+              <span class="text-lg text-gray-200 transition-colors duration-300 group-hover:text-orange-400">Website
+                Maintenance</span>
+            </a>
+          </div>
+        </div>
+        <div
+          class="bg-gray-700 rounded-lg p-6 w-full max-w-sm flex flex-col justify-center items-center shadow-inner border border-gray-600">
+          <h3 class="text-2xl font-bold text-white text-center mb-4">BOOK A FREE CONSULTATION</h3>
+          <p class="text-gray-400 text-center mb-6">
+            Need a winning strategy? Contact us for a free consultation, and let's create a plan that
+            drives results!
+          </p>
+          <a href="contact.html"
+            class="w-full py-3 px-6 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-full hover:from-orange-600 hover:to-red-600 transition-all shadow-lg text-center">
+            Contact Us
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="pt-20">
+    <!-- Hero Section -->
+    <section
+      class="relative h-[40vh] md:h-[50vh] flex items-center justify-center text-center text-white overflow-hidden">
+      <!-- Background Image -->
+      <div class="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-500"
+        style="background-image: url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=1974&auto=format&fit=crop');">
+      </div>
+
+      <!-- Transparent Overlay -->
+      <div class="absolute inset-0 z-10 bg-gray-800/60"></div>
+
+      <!-- Content Container -->
+      <div class="relative z-20 container mx-auto px-4">
+        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">
+          About Us
+        </h1>
+        <p class="text-lg md:text-xl text-gray-100 max-w-3xl mx-auto">
+          We are a dedicated team of digital experts committed to helping your business thrive in the online
+          world.
+        </p>
+      </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="py-16 md:py-24 bg-gray-900">
+      <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
+        <div class="md:order-1">
+          <img src="./image/friendGroup.jpg" alt="Our story" class="rounded-lg shadow-xl w-full h-auto">
+        </div>
+        <div class="md:order-2 text-center md:text-left">
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Our Mission & Vision</h2>
+          <p class="text-gray-300 mb-4">
+            At Leafnity, our mission is to empower businesses of all sizes with cutting-edge digital
+            solutions. We believe in building lasting relationships with our clients, providing personalized
+            strategies that drive measurable growth and success.
+          </p>
+          <p class="text-gray-300">
+            Our vision is to be a leading partner in the digital transformation journey for companies
+            worldwide. We strive to innovate continuously, master new technologies, and deliver exceptional
+            value that helps our clients stay ahead of the curve.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Team Section -->
+    <!-- <section class="bg-gray-800 py-16 md:py-24">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-12">Meet Our Team</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          Team Member 1
+          <div class="bg-gray-700 rounded-lg p-6 text-center shadow-lg border border-gray-600">
+            <img
+              src="https://media.istockphoto.com/id/1181196053/photo/smiling-indian-young-woman-sales-professional-arms-crossed-looking-at-camera-isolated-on-grey.webp?a=1&b=1&s=612x612&w=0&k=20&c=Hn_k8Pa5Zh8MU1oVw-iOZUpyVhyCab5uGEwLpADRZP4="
+              alt="Team Member 1" class="rounded-full w-28 h-28 mx-auto mb-4 border-4 border-orange-500">
+            <h3 class="text-xl font-bold text-white">Susmita</h3>
+            <p class="text-gray-400">CEO & Founder</p>
+          </div>
+          Team Member 2
+          <div class="bg-gray-700 rounded-lg p-6 text-center shadow-lg border border-gray-600">
+            <img
+              src="https://images.unsplash.com/photo-1752486268300-1bb7d6d9867d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZW1wbG95ZWUlMjBmYWNlJTIwaW1hZ2V8ZW58MHx8MHx8fDA%3D"
+              alt="Team Member 2" class="rounded-full w-28 h-28 mx-auto mb-4 border-4 border-orange-500">
+            <h3 class="text-xl font-bold text-white">Jane Smith</h3>
+            <p class="text-gray-400">Lead Designer</p>
+          </div>
+          Team Member 3
+          <div class="bg-gray-700 rounded-lg p-6 text-center shadow-lg border border-gray-600">
+            <img
+              src="https://media.istockphoto.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.webp?a=1&b=1&s=612x612&w=0&k=20&c=u5RPl326UFf1oyrM1iLFJtqdQ3K28TdBdSaSPKeCrdc="
+              alt="Team Member 3" class="rounded-full w-28 h-28 mx-auto mb-4 border-4 border-orange-500">
+            <h3 class="text-xl font-bold text-white">Alexi Brown</h3>
+            <p class="text-gray-400">Head of Marketing</p>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- Contact Form Section -->
+    <section class="py-10 px-2 md:px-8 lg:px-12 bg-gray-900">
+      <div
+        class="max-w-7xl mx-auto bg-gray-900 bg-opacity-80 rounded-xl p-8 md:p-12 shadow-2xl flex flex-col lg:flex-row gap-16">
+
+        <!-- Left Column -->
+        <div class="flex-1 space-y-8">
+          <h2 class="text-3xl md:text-5xl font-extrabold text-orange-500 leading-tight mb-4">GET IN TOUCH</h2>
+          <p class="text-gray-400 mb-8">
+            We'd love to hear from you. Feel free to reach out.
+          </p>
+
+          <div class="rounded-2xl p-6 bg-gray-800 border border-orange-500 shadow-lg">
+            <h3 class="text-xl font-bold text-white mb-2">General Inquiries</h3>
+            <p class="text-base font-medium text-gray-400">
+              <a href="mailto:contact@leafnitysolution.com"
+                class="text-orange-400 hover:underline">sales@leafnity.com</a>
+            </p>
+          </div>
+          <div class="rounded-2xl p-6 bg-gray-800 border border-orange-500 shadow-lg">
+            <h3 class="text-xl font-bold text-white mb-2">Careers</h3>
+            <p class="text-base font-medium text-gray-400">
+              <a href="mailto:careers@leafnitysolution.com"
+                class="text-orange-400 hover:underline">sales@leafnity.com</a>
+            </p>
+          </div>
+          <div class="rounded-2xl p-6 bg-gray-800 border border-orange-500 shadow-lg">
+            <h3 class="text-xl font-bold text-white mb-2">Call Us</h3>
+            <p class="text-base font-medium text-gray-400">
+              <a href="tel:+97145644587" class="text-orange-400 hover:underline">+91 7255008283</a>
+            </p>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="flex-1 min-h-[500px]" id="right-column">
+          <h2 class="text-3xl font-extrabold text-white mb-10 text-center lg:text-left">Send us a Message</h2>
+          <form id="contact-form" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <input type="text" placeholder="Full Name" name="Name" required
+                class="w-full p-4 rounded-xl border border-gray-700 bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500">
+              <input type="email" placeholder="Email Address" name="Email" required
+                class="w-full p-4 rounded-xl border border-gray-700 bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div
+                class="relative flex items-center w-full rounded-xl border border-gray-700 focus-within:ring-2 focus-within:ring-orange-500 bg-gray-800">
+                <select id="country-code" class="p-4 rounded-xl bg-transparent focus:outline-none pr-0 text-white">
+                  <option value="+1">US +1</option>
+                  <option value="+44">GB +44</option>
+                  <option value="+91">EN +971 </option>
+                  <option value="+971" selected>IN +91</option>
+                  <option value="+61">AU +61</option>
+                </select>
+                <input type="tel" id="phone" name="Phone" placeholder="050 123 4567" required
+                  class="w-full p-4 rounded-xl focus:outline-none bg-transparent text-white">
+              </div>
+
+              <select id="service" name="Project-Details"
+                class="w-full p-4 rounded-xl border border-gray-700 bg-gray-800 text-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                required>
+                <option value="" disabled selected>- Select Service -</option>
+                <option value="web">Web Design</option>
+                <option value="marketing">Digital Marketing</option>
+                <option value="content">Content Creation</option>
+                <option value="social">Social Media Management</option>
+              </select>
+            </div>
+
+            <textarea placeholder="Enter your message" name="Message" rows="6" required
+              class="w-full p-4 rounded-xl border border-gray-700 bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500"></textarea>
+
+            <button type="submit" id="submitBtn"
+              class="w-full py-4 px-6 rounded-xl bg-orange-500 text-white font-bold text-lg shadow-md hover:bg-orange-700 transition-colors">
+              LET'S TALK
+            </button>
+          </form>
+
+          <div id="success-message" class="mt-4 text-center text-lg font-semibold"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- ===== FOOTER SECTION ===== -->
+  <footer>
+    <div id="footer-placeholder"></div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT CODE ===== -->
+  <script>
+    const form = document.getElementById('contact-form');
+    const messageContainer = document.getElementById('message-container');
+    const phoneInput = document.getElementById('phone');
+
+    phoneInput.addEventListener('input', function () {
+      // Remove any non-digit characters
+      this.value = this.value.replace(/\D/g, '');
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Show success message
+      messageContainer.textContent = "Thank you! Your message has been sent.";
+      messageContainer.classList.remove('text-red-500');
+      messageContainer.classList.add('text-green-500');
+
+      // Clear the form manually
+      form.querySelectorAll('input').forEach(input => input.value = '');
+      form.querySelectorAll('textarea').forEach(textarea => textarea.value = '');
+      form.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+    });
+  </script>
+
+  <script src="./javascript/navbar.js"></script>
+  <script src="./javascript/services-modal.js"></script>
+  <script src="./javascript/footer.js"></script>
+  <script src="./javascript/floating-buttons.js"></script>
+  <script src="./javascript/main.js" defer></script>
+  <script src="./javascript/formhandler.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | Leafnity Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ======= FAQ STYLING ====== */
+        /* FAQ specific styles */
+        .faq-item {
+            border-bottom: 1px solid #4B5563;
+        }
+
+        .faq-question {
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .faq-question:hover {
+            background-color: #374151;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            /* Increased max-height for longer answers */
+        }
+
+        .faq-plus-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-plus-icon {
+            transform: rotate(45deg);
+        }
+
+        .border-arrow {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-right: 2px solid white;
+            border-bottom: 2px solid white;
+            transform: rotate(45deg);
+            /* points down initially */
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .border-arrow {
+            transform: rotate(-135deg);
+            /* points up when open */
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-gray-200">
+    <header id="nav-placeholder"></header>
+
+    <div id="modal-placeholder"></div>
+
+    <main class="pt-8 md:pt-16">
+        <section class="py-16 md:py-24">
+            <div class="container mx-auto px-4 max-w-4xl">
+                <div class="bg-gray-800 rounded-lg p-6 md:p-12 shadow-xl border border-gray-700">
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-12 text-center md:text-left">Frequently Asked Questions</h2>
+                    <div class="space-y-4">
+                        <div class="faq-item bg-gray-700 rounded-lg shadow-inner">
+                            <div class="faq-question flex justify-between items-center p-6 cursor-pointer">
+                                <h3 class="text-lg font-semibold text-gray-200">How do your services work?</h3>
+                                <span class="faq-arrow border-arrow"></span>
+                            </div>
+                            <div class="faq-answer px-6 pb-6 text-gray-400">
+                                Our services begin with a free consultation to understand your needs. From there, we'll
+                                develop a customized strategy and work with you step-by-step to achieve your goals,
+                                whether it's building a new website, improving your SEO, or launching a marketing campaign.
+                            </div>
+                        </div>
+
+                        <div class="faq-item bg-gray-700 rounded-lg shadow-inner">
+                            <div class="faq-question flex justify-between items-center p-6 cursor-pointer">
+                                <h3 class="text-lg font-semibold text-gray-200">What is the typical timeline for a website project?</h3>
+                                <span class="faq-arrow border-arrow"></span>
+                            </div>
+                            <div class="faq-answer px-6 pb-6 text-gray-400">
+                                The timeline varies depending on the complexity of the project. A basic informational
+                                website can take a few weeks, while a more complex e-commerce site may take several
+                                months. We will provide a detailed timeline during the consultation phase.
+                            </div>
+                        </div>
+
+                        <div class="faq-item bg-gray-700 rounded-lg shadow-inner">
+                            <div class="faq-question flex justify-between items-center p-6 cursor-pointer">
+                                <h3 class="text-lg font-semibold text-gray-200">Is our AI Website Builder easy to use?</h3>
+                                <span class="faq-arrow border-arrow"></span>
+                            </div>
+                            <div class="faq-answer px-6 pb-6 text-gray-400">
+                                Our AI Website Builder is designed with user-friendliness in mind. With intuitive
+                                drag-and-drop functionality and an AI-powered assistant, you can create a professional website without
+                                any coding knowledge.
+                            </div>
+                        </div>
+
+                        <div class="faq-item bg-gray-700 rounded-lg shadow-inner">
+                            <div class="faq-question flex justify-between items-center p-6 cursor-pointer">
+                                <h3 class="text-lg font-semibold text-gray-200">Is the content generated by AI Assistant original and plagiarism-free?</h3>
+                                <span class="faq-arrow border-arrow"></span>
+                            </div>
+                            <div class="faq-answer px-6 pb-6 text-gray-400">
+                                Yes, the AI Assistant generates unique and original content. We use advanced algorithms
+                                to ensure the content is plagiarism-free and tailored to your specific needs.
+                            </div>
+                        </div>
+
+                        <div class="faq-item bg-gray-700 rounded-lg shadow-inner">
+                            <div class="faq-question flex justify-between items-center p-6 cursor-pointer">
+                                <h3 class="text-lg font-semibold text-gray-200">How does the AI Assistant work?</h3>
+                                <span class="faq-arrow border-arrow"></span>
+                            </div>
+                            <div class="faq-answer px-6 pb-6 text-gray-400">
+                                The AI Assistant uses natural language processing to understand your requests. You can
+                                simply describe the content you need, and the AI will generate it for you in seconds,
+                                whether it's a blog post, product description, or marketing copy.
+                            </div>
+                        </div>
+
+                        <div class="faq-item bg-gray-700 rounded-lg shadow-inner">
+                            <div class="faq-question flex justify-between items-center p-6 cursor-pointer">
+                                <h3 class="text-lg font-semibold text-gray-200">What are the benefits of using AI Assistant?</h3>
+                                <span class="faq-arrow border-arrow"></span>
+                            </div>
+                            <div class="faq-answer px-6 pb-6 text-gray-400">
+                                The AI Assistant saves you time and effort by automating content creation. It helps you
+                                produce high-quality, unique content at scale, improving your website's SEO and
+                                engagement.
+                            </div>
+                        </div>
+
+                        <div class="faq-item bg-gray-700 rounded-lg shadow-inner">
+                            <div class="faq-question flex justify-between items-center p-6 cursor-pointer">
+                                <h3 class="text-lg font-semibold text-gray-200">Does our Booster replace all image optimization, caching and other optimization plugins?</h3>
+                                <span class="faq-arrow border-arrow"></span>
+                            </div>
+                            <div class="faq-answer px-6 pb-6 text-gray-400">
+                                Our Booster is a comprehensive solution that can replace multiple plugins. It includes
+                                features for image optimization, caching, and other performance enhancements, providing
+                                an all-in-one solution for your website's speed.
+                            </div>
+                        </div>
+
+                        <div class="faq-item bg-gray-700 rounded-lg shadow-inner">
+                            <div class="faq-question flex justify-between items-center p-6 cursor-pointer">
+                                <h3 class="text-lg font-semibold text-gray-200">How does image optimization of our Booster work?</h3>
+                                <span class="faq-arrow border-arrow"></span>
+                            </div>
+                            <div class="faq-answer px-6 pb-6 text-gray-400">
+                                The image optimization feature automatically compresses and resizes images to a smaller
+                                file size without compromising quality. It also lazy-loads images, ensuring that your
+                                website loads faster and provides a better user experience.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer-placeholder"></footer>
+  <!-- ===== JAVASCRIPT CODE ===== -->
+
+    <script>
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+    <script src="./javascript/navbar.js"></script>
+    <script src="./javascript/footer.js"></script>
+    <script src="./javascript/services-modal.js"></script>
+    <script src="./javascript/main.js"></script>
+    <script src="./javascript/floating-buttons.js"></script>
+</body>
+
+</html>
